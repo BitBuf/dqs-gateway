@@ -20,14 +20,14 @@ public class AuthCommand extends Command
     {
         if (!(sender instanceof ProxiedPlayer))
         {
-            sender.sendMessage(new TextComponent("\2477[\247b\247lDQS\247r\2477] \247fYou must be a proxied player to run this command."));
+            sender.sendMessage(new TextComponent("\2477[\247b\247lDQS\247r\2477] \247cYou must be a proxied player to run this command."));
 
             return;
         }
 
         if (!((ProxiedPlayer) sender).getServer().getInfo().getName().equalsIgnoreCase("center"))
         {
-            sender.sendMessage(new TextComponent("\2477[\247b\247lDQS\247r\2477] \247fYou must be connected to the DQS gateway server to run this command."));
+            sender.sendMessage(new TextComponent("\2477[\247b\247lDQS\247r\2477] \247cYou must be connected to the DQS gateway server to run this command."));
 
             return;
         }
