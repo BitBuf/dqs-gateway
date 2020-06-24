@@ -6,6 +6,7 @@ import dev.dewy.dqs.gateway.commands.game.ForgetCommand;
 import dev.dewy.dqs.gateway.utils.GatewayConfig;
 import dev.dewy.dqs.gateway.utils.SessionHandler;
 import net.dv8tion.jda.api.AccountType;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
@@ -22,9 +23,11 @@ import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.event.EventHandler;
 
 import javax.security.auth.login.LoginException;
+import java.awt.*;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
@@ -44,8 +47,6 @@ public class Gateway extends Plugin implements Listener
 
     public static SessionHandler sessionHandler = new SessionHandler("DQSSessions.yml");
     public static ScheduledExecutorService timerPool = Executors.newScheduledThreadPool(4);
-
-    public static String altCode;
 
     @Override
     public void onEnable()
@@ -101,13 +102,7 @@ public class Gateway extends Plugin implements Listener
             serverMap.put(id, entry.getValue());
         }
 
-        timerPool.scheduleAtFixedRate(() ->
-        {
-            this.getProxy().getServerInfo("center").getPlayers().forEach(player ->
-            {
-                player.sendMessage(new TextComponent("\2477[\247b\247lDQS\247r\2477] \247fUse the \247l/auth \247rcommand to get your DQS authentication code."));
-            });
-        }, 10L, 10L, TimeUnit.SECONDS);
+        timerPool.scheduleAtFixedRate(() -> this.getProxy().getServerInfo("center").getPlayers().forEach(player -> player.sendMessage(new TextComponent("\2477[\247b\247lDQS\247r\2477] \247fUse the \247l/auth \247rcommand to get your DQS authentication code."))), 10L, 10L, TimeUnit.SECONDS);
     }
 
     @EventHandler
@@ -198,5 +193,94 @@ public class Gateway extends Plugin implements Listener
 
             }
         });
+    }
+
+    public boolean authorizeCode(String code, String channelId, String altCode)
+    {
+        String serverName = channelId;
+
+        if (!altCode.equals("1"))
+        {
+            serverName = serverName + "_" + altCode;
+        }
+
+        if (!authTokenMap.containsKey(code))
+        {
+            Objects.requireNonNull(DISCORD.getTextChannelById(channelId)).sendMessage(new EmbedBuilder()
+                    .setTitle("**DQS** - Invalid Authentication Code")
+                    .setDescription("You've entered an invalid authentication code. Please join `dqs.dewy.dev` and use the `/auth` command to get one.\n\nTake a look [here](https://dqs.dewy.dev/features) for documentation and further assistance.")
+                    .setColor(new Color(15221016)) // 10144497
+                    .setAuthor("DQS " + Gateway.VERSION, null, "https://i.imgur.com/QQHhpKT.png")
+                    .build()).queue();
+
+            return false;
+        }
+
+        if (this.getProxy().getPlayer(authTokenMap.get(code)) == null)
+        {
+            Objects.requireNonNull(DISCORD.getTextChannelById(channelId)).sendMessage(new EmbedBuilder()
+                    .setTitle("**DQS** - Invalid Authentication Circumstance")
+                    .setDescription("You must be connected to `dqs.dewy.dev` to use the authentication commands.\n\nTake a look [here](https://dqs.dewy.dev/features) for documentation and furtherassistance.")
+                    .setColor(new Color(15221016)) // 10144497
+                    .setAuthor("DQS " + Gateway.VERSION, null, "https://i.imgur.com/QQHhpKT.png")
+                    .build()).queue();
+
+            return false;
+        }
+
+        ProxiedPlayer player = this.getProxy().getPlayer(authTokenMap.get(code));
+
+        Objects.requireNonNull(DISCORD.getTextChannelById(channelId)).sendMessage(new EmbedBuilder()
+                .setTitle("**DQS** - Negotiating Connection")
+                .setDescription("Negotiating a connection to your DQS instance. Hang tight!")
+                .setColor(new Color(10144497))
+                .setAuthor("DQS " + Gateway.VERSION, null, "https://i.imgur.com/QQHhpKT.png")
+                .build()).queue();
+
+        player.sendMessage(new TextComponent("\2477[\247b\247lDQS\247r\2477] \247fNegotiating connection to your DQS instance..."));
+
+        ServerInfo info = serverMap.get(serverName);
+
+        if (info == null)
+        {
+            player.sendMessage(new TextComponent("\2477[\247b\247lDQS\247r\2477] \247cYour DQS instance could not be found. Contact Dewy if you believe this is in error."));
+
+            return false;
+        }
+
+        CountDownLatch latch = new CountDownLatch(1);
+        final boolean[] vibeCheck = {true};
+
+        info.ping((result, error) ->
+        {
+            if (error != null)
+            {
+                vibeCheck[0] = false;
+            }
+
+            latch.countDown();
+        });
+
+        try
+        {
+            latch.await(10L, TimeUnit.SECONDS);
+        }
+        catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+
+        if (vibeCheck[0])
+        {
+            player.connect(info);
+
+            Gateway.sessionHandler.cacheUser(info.getName(), player.getUniqueId().toString());
+
+            return true;
+        }
+
+        player.sendMessage(new TextComponent("\2477[\247b\247lDQS\247r\2477] \247fA critical error has occurred connecting to your instance. Contact Dewy."));
+
+        return false;
     }
 }

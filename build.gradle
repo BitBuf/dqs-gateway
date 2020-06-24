@@ -29,3 +29,5 @@ dependencies {
 shadowJar {
     classifier = 'dist'
 }
+
+build.dependsOn(shadowJar)

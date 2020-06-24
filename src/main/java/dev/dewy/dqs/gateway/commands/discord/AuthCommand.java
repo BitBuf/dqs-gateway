@@ -38,7 +38,7 @@ public class AuthCommand extends Command
                     return;
                 }
 
-                if (args[1].length() != 6)
+                if (args[0].length() != 6)
                 {
                     event.reply(new EmbedBuilder()
                             .setTitle("**DQS** - Invalid Command Arguments")
@@ -50,7 +50,13 @@ public class AuthCommand extends Command
                     return;
                 }
 
-                // actual auth
+                String authCode = args[0];
+                String altCode = args[1];
+
+                if (Gateway.INSTANCE.authorizeCode(authCode, event.getTextChannel().getId(), altCode))
+                {
+                    Gateway.authTokenMap.remove(authCode);
+                }
             }
             catch (Throwable t)
             {
