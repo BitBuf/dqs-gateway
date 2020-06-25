@@ -45,7 +45,7 @@ public class Gateway extends Plugin implements Listener
     public static HashMap<String, UUID> authTokenMap = new HashMap<>();
     public static HashMap<String, ServerInfo> serverMap = new HashMap<>();
 
-    public static SessionHandler sessionHandler = new SessionHandler("DQSSessions.yml");
+    public static SessionHandler sessionHandler = new SessionHandler("sessions.yml");
     public static ScheduledExecutorService timerPool = Executors.newScheduledThreadPool(4);
 
     @Override

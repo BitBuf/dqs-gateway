@@ -43,6 +43,6 @@ public class AuthCommand extends Command
         Gateway.authTokenMap.put(code.toString(), ((ProxiedPlayer) sender).getUniqueId());
 
         sender.sendMessage(new TextComponent("\2477[\247b\247lDQS\247r\2477] \247fHere's your six-digit code: \247l" + code.toString() + "\247r."));
-        sender.sendMessage(new TextComponent("\2477[\247b\247lDQS\247r\2477] \247fUse the &auth command in your \247lchannel\247rto authenticate."));
+        sender.sendMessage(new TextComponent("\2477[\247b\247lDQS\247r\2477] \247fUse the &auth command in your \247lchannel\247r to authenticate."));
     }
 }
