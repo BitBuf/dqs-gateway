@@ -255,6 +255,8 @@ public class Gateway extends Plugin implements Listener
         {
             if (error != null)
             {
+                System.out.println(error);
+
                 vibeCheck[0] = false;
             }
 
