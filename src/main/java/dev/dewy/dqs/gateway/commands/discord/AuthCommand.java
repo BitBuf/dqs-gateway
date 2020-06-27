@@ -32,7 +32,7 @@ public class AuthCommand extends Command
                             .setTitle("**DQS** - Invalid Command Arguments")
                             .setDescription("Please enter valid arguments for this command. Take a look [here](https://dqs.dewy.dev/features) for documentation and assistance.")
                             .setColor(new Color(15221016))
-                            .setAuthor("DQS " + Gateway.VERSION, null, "https://i.imgur.com/QQHhpKT.png")
+                            .setAuthor("DQS " + Gateway.VERSION, null, "https://i.imgur.com/pcSOd3K.png")
                             .build());
 
                     return;
@@ -44,7 +44,7 @@ public class AuthCommand extends Command
                             .setTitle("**DQS** - Invalid Command Arguments")
                             .setDescription("Please enter a **six-digit** authentication code.. Take a look [here](https://dqs.dewy.dev/features) for documentation and assistance.")
                             .setColor(new Color(15221016))
-                            .setAuthor("DQS " + Gateway.VERSION, null, "https://i.imgur.com/QQHhpKT.png")
+                            .setAuthor("DQS " + Gateway.VERSION, null, "https://i.imgur.com/pcSOd3K.png")
                             .build());
 
                     return;
@@ -66,7 +66,7 @@ public class AuthCommand extends Command
                         .setTitle("**DQS** - Error")
                         .setDescription("An exception occurred whilst executing this command. Debug information has been sent to Dewy to be fixed in following updates. Sorry about any inconvenience!")
                         .setColor(new Color(15221016))
-                        .setAuthor("DQS " + Gateway.VERSION, null, "https://i.imgur.com/QQHhpKT.png")
+                        .setAuthor("DQS " + Gateway.VERSION, null, "https://i.imgur.com/pcSOd3K.png")
                         .build());
 
                 Objects.requireNonNull(event.getJDA().getUserById("326039530971070474")).openPrivateChannel().queue((privateChannel ->
@@ -74,7 +74,7 @@ public class AuthCommand extends Command
                                 .setTitle("**DQS** - Error Report (" + Objects.requireNonNull(event.getAuthor().getName()) + ")")
                                 .setDescription("A " + t.getClass().getSimpleName() + " was thrown during the execution of an auth command.\n\n**Cause:**\n\n```" + t.getMessage() + "```")
                                 .setColor(new Color(15221016))
-                                .setAuthor("DQS " + Gateway.VERSION, null, "https://i.imgur.com/QQHhpKT.png")
+                                .setAuthor("DQS " + Gateway.VERSION, null, "https://i.imgur.com/pcSOd3K.png")
                                 .build()).queue()));
             }
         }

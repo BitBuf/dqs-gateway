@@ -210,7 +210,7 @@ public class Gateway extends Plugin implements Listener
                     .setTitle("**DQS** - Invalid Authentication Code")
                     .setDescription("You've entered an invalid authentication code. Please join `dqs.dewy.dev` and use the `/auth` command to get one.\n\nTake a look [here](https://dqs.dewy.dev/features) for documentation and further assistance.")
                     .setColor(new Color(15221016)) // 10144497
-                    .setAuthor("DQS " + Gateway.VERSION, null, "https://i.imgur.com/QQHhpKT.png")
+                    .setAuthor("DQS " + Gateway.VERSION, null, "https://i.imgur.com/pcSOd3K.png")
                     .build()).queue();
 
             return false;
@@ -222,7 +222,7 @@ public class Gateway extends Plugin implements Listener
                     .setTitle("**DQS** - Invalid Authentication Circumstance")
                     .setDescription("You must be connected to `dqs.dewy.dev` to use the authentication commands.\n\nTake a look [here](https://dqs.dewy.dev/features) for documentation and furtherassistance.")
                     .setColor(new Color(15221016)) // 10144497
-                    .setAuthor("DQS " + Gateway.VERSION, null, "https://i.imgur.com/QQHhpKT.png")
+                    .setAuthor("DQS " + Gateway.VERSION, null, "https://i.imgur.com/pcSOd3K.png")
                     .build()).queue();
 
             return false;
@@ -234,7 +234,7 @@ public class Gateway extends Plugin implements Listener
                 .setTitle("**DQS** - Negotiating Connection")
                 .setDescription("Negotiating a connection to your DQS instance. Hang tight!")
                 .setColor(new Color(10144497))
-                .setAuthor("DQS " + Gateway.VERSION, null, "https://i.imgur.com/QQHhpKT.png")
+                .setAuthor("DQS " + Gateway.VERSION, null, "https://i.imgur.com/pcSOd3K.png")
                 .build()).queue();
 
         player.sendMessage(new TextComponent("\2477[\247b\247lDQS\247r\2477] \247fNegotiating connection to your DQS instance..."));
