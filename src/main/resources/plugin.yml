@@ -1,5 +1,5 @@
 name: Gateway
-version: 3.0.0
+version: 3.0.1
 description: DQS authentication Waterfall plugin.
 author: Dewy
 main: dev.dewy.dqs.gateway.Gateway
