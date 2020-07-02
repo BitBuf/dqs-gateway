@@ -1,6 +1,7 @@
 package dev.dewy.dqs.gateway;
 
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
+import dev.dewy.dqs.gateway.commands.discord.publicfacing.*;
 import dev.dewy.dqs.gateway.commands.game.AuthCommand;
 import dev.dewy.dqs.gateway.commands.game.ForgetCommand;
 import dev.dewy.dqs.gateway.utils.GatewayConfig;
@@ -76,6 +77,14 @@ public class Gateway extends Plugin implements Listener
         commandClient.setHelpWord("EFFFFFFFFFFFFFFFFFFFFFFFWEFCWECFEWCVEWVBIWEIVJM");
 
         commandClient.addCommand(new dev.dewy.dqs.gateway.commands.discord.AuthCommand());
+
+        commandClient.addCommands(
+                new AboutCommand(),
+                new BuyCommand(),
+                new CreditsCommand(),
+                new DocsCommand(),
+                new FAQCommand()
+        );
 
         try
         {
