@@ -37,7 +37,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Gateway extends Plugin implements Listener
 {
-    public static final String VERSION = "3.0.2";
+    public static final String VERSION = "3.0.3";
 
     public static Gateway INSTANCE;
 
@@ -122,7 +122,7 @@ public class Gateway extends Plugin implements Listener
         players.setMax(ProxyServer.getInstance().getConfig().getServersCopy().size() - 1);
 
         ServerPing.Protocol dqsProtocol = event.getResponse().getVersion();
-        dqsProtocol.setName("DQS Protocol (3.0.2) 1.12.2");
+        dqsProtocol.setName("DQS Protocol (3.0.3) 1.12.2");
     }
 
     @EventHandler
