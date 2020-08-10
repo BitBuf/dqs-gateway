@@ -37,7 +37,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Gateway extends Plugin implements Listener
 {
-    public static final String VERSION = "3.1.0";
+    public static final String VERSION = "3.2.0";
 
     public static Gateway INSTANCE;
 
